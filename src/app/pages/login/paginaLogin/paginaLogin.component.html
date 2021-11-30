@@ -13,16 +13,16 @@
 
     <mat-form-field class="example-full-width"  appearance="fill">
       <mat-label>Login</mat-label>
-      <input matInput required id="username" name="username" [(ngModel)]="usuario.cnpj">
+      <input matInput required id="username" #email="ngModel" name="username" [(ngModel)]="usuario.cnpj">
     </mat-form-field>
 
     <mat-form-field class="example-full-width"  appearance="fill">
       <mat-label >Senha</mat-label>
-      <input matInput type="password" required id="password" name="password" [(ngModel)]="usuario.senha">
+      <input matInput type="password" required id="password" #senha="ngModel" name="password" [(ngModel)]="usuario.senha">
     </mat-form-field>
 
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="login()">LOGIN</button>
+      <button mat-raised-button color="primary" [disabled]="email.invalid || senha.invalid" (click)="login()">LOGIN</button>
     </mat-card-actions>
 
     </form>
