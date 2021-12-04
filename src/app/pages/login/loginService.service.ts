@@ -22,7 +22,7 @@ export class LoginServiceService {
     login.cnpj = username
     login.senha = password
 
-    return this.http.post(AppConstants.login, { pa }).pipe( map( ( res: any) => {
+    return this.http.post(AppConstants.login, JSON.stringify(login) ).pipe( map( ( res: any) => {
       localStorage.setItem(this.TOKEN_NAME, res.Authorization.split(" ")[1])
       return res
     }  ))
