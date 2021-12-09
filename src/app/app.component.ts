@@ -11,6 +11,7 @@ export class AppComponent implements OnInit{
   title = 'projeto-Wolfgan';
 
   isAuthenticated = false;
+  isMenu = false;
 
   constructor(private login: LoginServiceService, private router: Router){}
 
@@ -24,5 +25,13 @@ export class AppComponent implements OnInit{
     this.login.logout();
     this.isAuthenticated = false;
     this.router.navigate([""]);
+  }
+
+  mostrarMenu(){
+    if (this.isMenu) {
+      this.isMenu = false;
+    } else {
+      this.isMenu = true;
+    }
   }
 }

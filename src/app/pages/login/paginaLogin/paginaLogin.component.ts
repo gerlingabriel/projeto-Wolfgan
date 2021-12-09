@@ -26,16 +26,6 @@ export class PaginaLoginComponent implements OnDestroy {
 
   login() {
     this.loginService.login(this.usuario.cnpj, this.usuario.senha)
-    .subscribe(() => {
-      console.table(localStorage.getItem('token') )
-      this.router.navigate(["inicio"]);
-    },
-      error => {
-        console.error("Erro de Login");
-        alert("Acesso Negado");
-      }
-    );
-
     this.appComponent.isAuthenticated = true;
   }
 

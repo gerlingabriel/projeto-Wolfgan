@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 
 import { AppConstants } from '../../AppConstants';
 import { Login } from './paginaLogin/login';
@@ -22,10 +21,19 @@ export class LoginServiceService {
     login.cnpj = username
     login.senha = password
 
-    return this.http.post(AppConstants.login, JSON.stringify(login) ).pipe( map( ( res: any) => {
-      localStorage.setItem(this.TOKEN_NAME, res.Authorization.split(" ")[1])
-      return res
-    }  ))
+    return this.http.post(AppConstants.login, JSON.stringify(login) ).subscribe((data) => {
+
+          var token = JSON.parse(JSON.stringify(data)).Authorization.split(" ")[1];
+          console.log(token)
+          localStorage.setItem(this.TOKEN_NAME, token);
+
+          this.router.navigate(["inicio"]);
+        },
+        error => {
+          console.error("Erro de Login");
+          alert("Acesso Negado");
+        }
+      );
 
   }
 
