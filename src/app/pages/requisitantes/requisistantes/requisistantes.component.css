@@ -1,0 +1,19 @@
+
+mat-card{
+  margin-top: 5px;
+
+}
+
+.container {
+  padding: 5px;
+}
+
+.center {
+  margin: auto;
+  width: 95%;
+  padding: 10px;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}

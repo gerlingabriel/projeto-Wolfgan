@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Detalhamento do Orçamento</h1>
+<div mat-dialog-content >
+  Itens:
+
+  <mat-list>
+    <mat-list-item *ngFor="let item of dataDialog" >
+
+      <div mat-line>Descrição: {{item.descricaoProduto}}</div>
+      <div mat-line>Preço Unitário: {{item.precoUnitario | currency:  'R$'}}</div>
+      <div mat-line>Quantidade: {{item.quantidade}} </div>
+
+    </mat-list-item>
+  </mat-list>
+
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</div>

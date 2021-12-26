@@ -1,7 +1,7 @@
 <!-- Cabeçalho -->
 <mat-toolbar color="primary"  >
 
-  <button mat-icon-button>
+  <button mat-icon-button *ngIf="isAuthenticated">
     <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
   </button>
 
@@ -28,10 +28,10 @@
 <mat-sidenav-container>
 
   <!-- =Barra lateral-->
-  <mat-sidenav #sidenav>
-    <mat-nav-list>
+  <mat-sidenav #sidenav class="background-primary" >
+    <mat-nav-list style="width: 200px;">
 
-      <a mat-list-item [routerLink]="'/accounts'"> Accounts </a>
+      <a mat-list-item [routerLink]="'/requisitante'" (click)="sidenav.toggle()" > Add Pesquisa Preço </a>
       <a mat-list-item [routerLink]="'/create-account'"> Create Account </a>
       <a mat-list-item [routerLink]="'/contacts'"> Contacts </a>
       <a mat-list-item [routerLink]="'/create-contact'"> Create Contact </a>
@@ -44,10 +44,11 @@
   </mat-sidenav>
 
   <!-- Conteudo das páginas-->
-  <mat-sidenav-content>
-    <div style="height: 95vh;">
+  <mat-sidenav-content >
+    <div style="height: 93vh;" >
 
       <router-outlet></router-outlet>
+
     </div>
   </mat-sidenav-content>
 

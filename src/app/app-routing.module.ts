@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: 'requisitante',
     loadChildren: () => import('./pages/requisitantes/requisitantes.module').then(m => m.RequisitantesModule)
-  },
+  }
 ];
 
 @NgModule({
@@ -22,3 +22,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
