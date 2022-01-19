@@ -1,7 +1,5 @@
-
-mat-card{
+mat-card {
   margin-top: 5px;
-
 }
 
 .container {
@@ -16,4 +14,15 @@ mat-card{
 
 .mat-row:hover .mat-cell {
   border-color: currentColor;
+}
+
+.card-inicial {
+  text-align: center;
+}
+
+.caixa-filtro{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }

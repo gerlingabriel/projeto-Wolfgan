@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Detalhamento do Orçamento</h1>
+<div mat-dialog-content>
+  Itens:
+
+  <div class="caixa-center-colunas">
+    <mat-card>
+      <form >
+        <div class="caixa-center-linha" style="margin-top: 10px;">
+
+          <mat-form-field>
+            <mat-label>Produto</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let produto of listaProdutos" [value]="produto.id">{{produto.nome}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill"  style="margin-left: 10px;">
+            <mat-label>Preço Unitário</mat-label>
+            <input matInput required id="precoUnitario" #precoUnitario="ngModel" name="precoUnitario" [(ngModel)]="itens.precoUnitario">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" style="margin-left: 10px;">
+            <mat-label>Quantidade</mat-label>
+            <input matInput equired id="quantidade"  #quantidade="ngModel" name="quantidade" [(ngModel)]="itens.quantidade">
+          </mat-form-field>
+
+          <mat-card-actions  style="margin-left: 10px;">
+            <button mat-raised-button color="primary" [disabled]="precoUnitario.invalid || quantidade.invalid" (click)="addItens()">Adicionar</button>
+          </mat-card-actions>
+
+        </div>
+      </form>
+    </mat-card>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+
+</div>

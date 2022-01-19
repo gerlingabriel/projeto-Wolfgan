@@ -1,11 +1,12 @@
+import { Router } from '@angular/router';
 import { Component, Inject, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { DetalhePesquisaPreco } from './../detalhePesquisaPreco';
-import { PesquisaPreco } from './../pesquisaPreco';
+import { DetalhePesquisaPreco } from './detalhePesquisaPreco';
+import { PesquisaPreco } from './pesquisaPreco';
 import { RequisitantesService } from './../requisitantes.service';
 
 @Component({
@@ -28,7 +29,7 @@ export class RequisistantesComponent implements OnInit {
 
   detatlheItens: any;
 
-  constructor(private serviceRequisitante: RequisitantesService, public dialog: MatDialog) {
+  constructor(private serviceRequisitante: RequisitantesService, public dialog: MatDialog, private router: Router) {
     this.pesquisaPrecos = new MatTableDataSource();
    }
 
@@ -65,7 +66,6 @@ export class RequisistantesComponent implements OnInit {
 
         this.pesquisaPrecos = data;
         this.requisitantes = this.pesquisaPrecos;
-        console.log(data)
 
       }))
 
@@ -75,7 +75,7 @@ export class RequisistantesComponent implements OnInit {
   }
 
   criarPesquisaPreco(){
-
+    this.router.navigate(["requisitante/cadastroRequisitante"]);
   }
 
 // Fim classe
@@ -97,3 +97,5 @@ export class DialogDataExampleDialog implements OnInit{
     console.log(this.data);
   }
 }
+
+

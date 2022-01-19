@@ -24,4 +24,8 @@ export class RequisitantesService {
     return this.http.get(AppConstants.baseServidor + "/pesquisaPrecos/pesquisaPorTitulo/" +nome);
   }
 
+  buscarProdutos(): Observable<any> {
+    return this.http.get(AppConstants.baseServidor + "/produtos");
+  }
+
 }
