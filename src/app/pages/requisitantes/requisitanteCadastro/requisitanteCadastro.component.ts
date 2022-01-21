@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 
 import { RequisitantesService } from './../requisitantes.service';
 import { Itens, Produto } from './itens';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 export const MY_DATE_FORMATS = {
@@ -31,8 +32,12 @@ export class RequisitanteCadastroComponent implements OnInit {
   itensPesquisaPreco: any = [];
   displayedColumns: string[] = ['id', 'produto', 'precoUnitario', 'quantidade'];
   existeItens = false;
+  contadorId: number = 1;
+  itensAdd: MatTableDataSource<Itens>;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {
+    this.itensAdd = new MatTableDataSource();
+  }
 
   ngOnInit() {
 
@@ -41,8 +46,23 @@ export class RequisitanteCadastroComponent implements OnInit {
   openDialog(){
     const dialogRef = this.dialog.open(DialogDataDialog);
 
-    return dialogRef.afterClosed();
+    return dialogRef.afterClosed().subscribe(response => {
+
+      response.id = this.contadorId;
+      this.contadorId++;
+
+      this.itensAdd = new MatTableDataSource(response);
+      this.itensPesquisaPreco = this.itensAdd;
+;
+
+      this.existeItens = true;
+      console.log(response);
+      console.log(this.itensPesquisaPreco);
+
+    });
   }
+
+
 
 }
 
@@ -53,9 +73,11 @@ export class RequisitanteCadastroComponent implements OnInit {
 })
 export class DialogDataDialog implements OnInit{
 
-  listaProdutos: any;
+  listaProdutos: Produto[]= [];
 
   addProduto = new Produto();
+
+  itens = new Itens();
 
   constructor(private servicos: RequisitantesService,
     private dialogRef: MatDialogRef<RequisitanteCadastroComponent>,
@@ -68,11 +90,9 @@ export class DialogDataDialog implements OnInit{
   }
 
   addItens(){
-    this.itens.produto = this.listaProdutos;
+    //this.itens.produto = this.listaProdutos;
+    this.listaProdutos = [...this.listaProdutos, this.itens.produto];
     this.dialogRef.close(this.itens);
-    console.log(this.itens);
   }
-
-  itens = new Itens();
 
 }

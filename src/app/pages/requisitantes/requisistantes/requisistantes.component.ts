@@ -39,6 +39,10 @@ export class RequisistantesComponent implements OnInit {
       this.pesquisaPrecos = new MatTableDataSource(data);
       this.requisitantes = this.pesquisaPrecos;
 
+
+      console.log(this.pesquisaPrecos);
+      console.log(this.requisitantes);
+
       this.pesquisaPrecos.paginator = this.paginator;
       this.pesquisaPrecos.sort = this.sort;
     })
