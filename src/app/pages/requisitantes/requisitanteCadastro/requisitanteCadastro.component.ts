@@ -1,10 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { RequisitantesService } from './../requisitantes.service';
 import { Itens, Produto } from './itens';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 
 
 export const MY_DATE_FORMATS = {
@@ -31,13 +31,11 @@ export class RequisitanteCadastroComponent implements OnInit {
 
   itensPesquisaPreco: any = [];
   displayedColumns: string[] = ['id', 'produto', 'precoUnitario', 'quantidade'];
-  existeItens = false;
   contadorId: number = 1;
-  itensAdd: MatTableDataSource<Itens>;
 
-  constructor(public dialog: MatDialog) {
-    this.itensAdd = new MatTableDataSource();
-  }
+  @ViewChild(MatTable,{static:true}) table!: MatTable<any>;
+
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -47,23 +45,28 @@ export class RequisitanteCadastroComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogDataDialog);
 
     return dialogRef.afterClosed().subscribe(response => {
-
-      response.id = this.contadorId;
-      this.contadorId++;
-
-      this.itensAdd = new MatTableDataSource(response);
-      this.itensPesquisaPreco = this.itensAdd;
-;
-
-      this.existeItens = true;
-      console.log(response);
-      console.log(this.itensPesquisaPreco);
+      this.addRowData(response.data);
 
     });
   }
 
+  addRowData(data: Itens){
 
+    this.itensPesquisaPreco.push({
 
+      id:this.contadorId,
+      precoUnitario:data.precoUnitario,
+      produto:data.produto,
+      quantidade:data.quantidade
+
+    });
+    this.contadorId++;
+    this.table.renderRows();
+  }
+
+  add(){
+    
+  }
 }
 
 @Component({
@@ -81,7 +84,7 @@ export class DialogDataDialog implements OnInit{
 
   constructor(private servicos: RequisitantesService,
     private dialogRef: MatDialogRef<RequisitanteCadastroComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Itens) { }
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: Itens) { }
 
   ngOnInit(): void {
     this.servicos.buscarProdutos().subscribe( (datar => {
@@ -90,9 +93,7 @@ export class DialogDataDialog implements OnInit{
   }
 
   addItens(){
-    //this.itens.produto = this.listaProdutos;
-    this.listaProdutos = [...this.listaProdutos, this.itens.produto];
-    this.dialogRef.close(this.itens);
+    this.dialogRef.close({data:this.itens});
   }
 
 }

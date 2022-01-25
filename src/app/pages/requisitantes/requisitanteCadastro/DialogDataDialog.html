@@ -9,8 +9,8 @@
 
           <mat-form-field>
             <mat-label>Produto</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let produto of listaProdutos" [value]="produto.id">{{produto.nome}}</mat-option>
+            <mat-select [(ngModel)]="itens.produto" [ngModelOptions]="{standalone: true}" >
+              <mat-option *ngFor="let produto of listaProdutos" [value]="produto">{{produto.nome}}</mat-option>
             </mat-select>
           </mat-form-field>
 
